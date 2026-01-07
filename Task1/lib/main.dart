@@ -24,6 +24,21 @@ class Student {
   );
 }
 
+Widget MyTextField({
+  String hintText = "Enter text",
+  Function(String)? onChanged,
+}) => SizedBox(
+  height: 60,
+  width: 250,
+  child: TextField(
+    decoration: InputDecoration(
+      hintText: hintText,
+      contentPadding: EdgeInsets.symmetric(horizontal: 10),
+    ),
+    onChanged: onChanged,
+  ),
+);
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -32,7 +47,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Student student = Student('Maluiev', 'Pavlo');
+  final String defaultFirstName = 'Pavlo';
+  final String defaultLastName = 'Maluiev';
+  late Student student;
+
+  @override
+  void initState() {
+    super.initState();
+    student = Student(defaultFirstName, defaultLastName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,35 +74,25 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               student.buildTextWidget(),
-              SizedBox(
-                height: 60,
-                width: 250,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    hintText: "Enter your first name",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      student.firstName(value);
-                    });
-                  },
-                ),
+              MyTextField(
+                hintText: "Enter your first name",
+                onChanged: (value) {
+                  setState(() {
+                    (value != '')
+                        ? student.firstName(value)
+                        : student.firstName(defaultFirstName);
+                  });
+                },
               ),
-              SizedBox(
-                height: 60,
-                width: 250,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    hintText: "Enter your last name",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      student.lastName(value);
-                    });
-                  },
-                ),
+              MyTextField(
+                hintText: "Enter your last name",
+                onChanged: (value) {
+                  setState(() {
+                    (value != '')
+                        ? student.lastName(value)
+                        : student.lastName(defaultLastName);
+                  });
+                },
               ),
             ],
           ),
