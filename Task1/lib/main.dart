@@ -24,21 +24,24 @@ class Student {
   );
 }
 
-class MyApp extends StatelessWidget {
-  final student = Student('Maluiev', 'Pavlo');
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Student student = Student('Maluiev', 'Pavlo');
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'First task. Maluiev Pavlo',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
+            style: TextStyle(fontSize: 20),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -47,23 +50,35 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(child: student.buildTextWidget()),
-              Center(
+              student.buildTextWidget(),
+              SizedBox(
+                height: 60,
+                width: 250,
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Enter your first name",
-                    fillColor: Colors.cyan,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
-                  onChanged: (String value) => student.firstName(value),
+                  onChanged: (value) {
+                    setState(() {
+                      student.firstName(value);
+                    });
+                  },
                 ),
               ),
-              Center(
+              SizedBox(
+                height: 60,
+                width: 250,
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Enter your last name",
-                    fillColor: Colors.cyan,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
-                  onChanged: (String value) => student.lastName(value),
+                  onChanged: (value) {
+                    setState(() {
+                      student.lastName(value);
+                    });
+                  },
                 ),
               ),
             ],
