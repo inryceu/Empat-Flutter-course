@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ui.dart';
 import 'domain.dart';
+import 'utils.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -72,12 +73,39 @@ class _MyAppState extends State<MyApp> {
               myButton(
                 text: 'Submit',
                 onPressed: () {
+                  if (_firstName.isEmpty) {
+                    _firstName = defaultFirstName;
+                  }
+                  if (_lastName.isEmpty) {
+                    _lastName = defaultLastName;
+                  }
+
+                  var resultFirstName = validate(_firstName);
+                  var resultLastName = validate(_lastName);
+
+                  if (resultFirstName != "OK") {
+                    myExeptionDialog(
+                      context: context,
+                      message: "$resultFirstName in First Name",
+                    );
+                  }
+                  if (resultLastName != "OK") {
+                    myExeptionDialog(
+                      context: context,
+                      message: "$resultLastName in Last Name",
+                    );
+                  }
+
                   setState(() {
                     student.firstName(
-                      _firstName.isEmpty ? defaultFirstName : _firstName,
+                      (_firstName.isEmpty || resultFirstName != "OK")
+                          ? defaultFirstName
+                          : _firstName,
                     );
                     student.lastName(
-                      _lastName.isEmpty ? defaultLastName : _lastName,
+                      (_lastName.isEmpty || resultLastName != "OK")
+                          ? defaultLastName
+                          : _lastName,
                     );
                   });
                 },
@@ -101,4 +129,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MaterialApp(home: MyApp()));
+}
