@@ -1,43 +1,6 @@
 import 'package:flutter/material.dart';
-
-class Student {
-  String _firstName;
-  String _lastName;
-
-  Student(this._firstName, this._lastName);
-
-  void firstName(String firstName) {
-    _firstName = firstName;
-  }
-
-  void lastName(String lastName) {
-    _lastName = lastName;
-  }
-
-  Widget buildTextWidget() => Text(
-    '$_firstName $_lastName',
-    style: TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.bold,
-      color: Colors.blueGrey,
-    ),
-  );
-}
-
-Widget myTextField({
-  String hintText = "Enter text",
-  Function(String)? onChanged,
-}) => SizedBox(
-  height: 60,
-  width: 250,
-  child: TextField(
-    decoration: InputDecoration(
-      hintText: hintText,
-      contentPadding: EdgeInsets.symmetric(horizontal: 10),
-    ),
-    onChanged: onChanged,
-  ),
-);
+import 'ui.dart';
+import 'domain.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -66,9 +29,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             'First task. Maluiev Pavlo',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           centerTitle: true,
           backgroundColor: Colors.indigo,
@@ -102,45 +69,29 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
               ),
-              SizedBox(
-                height: 40,
-                width: 200,
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      student.firstName(_firstName);
-                      student.lastName(_lastName);
-                    });
-                  },
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+              myButton(
+                text: 'Submit',
+                onPressed: () {
+                  setState(() {
+                    student.firstName(
+                      _firstName.isEmpty ? defaultFirstName : _firstName,
+                    );
+                    student.lastName(
+                      _lastName.isEmpty ? defaultLastName : _lastName,
+                    );
+                  });
+                },
               ),
-              SizedBox(
-                height: 40,
-                width: 200,
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      student.firstName(defaultFirstName);
-                      student.lastName(defaultLastName);
-                    });
-                  },
-                  child: Text(
-                    'Reset to Default',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+              myButton(
+                text: 'Reset to default',
+                onPressed: () {
+                  setState(() {
+                    _firstName = defaultFirstName;
+                    _lastName = defaultLastName;
+                    student.firstName(defaultFirstName);
+                    student.lastName(defaultLastName);
+                  });
+                },
               ),
             ],
           ),
