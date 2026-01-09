@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 Widget myTextField({
@@ -20,7 +18,7 @@ Widget myTextField({
 Widget myButton({required String text, required VoidCallback onPressed}) =>
     SizedBox(
       height: 40,
-      width: 200,
+      width: 250,
       child: TextButton(
         onPressed: onPressed,
         child: Text(

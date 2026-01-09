@@ -14,8 +14,9 @@ class _MyAppState extends State<MyApp> {
   final String defaultFirstName = 'Pavlo';
   final String defaultLastName = 'Maluiev';
 
-  var _firstName = '';
-  var _lastName = '';
+  String? _firstName;
+  String? _lastName;
+  String? _fullName;
 
   late Student student;
 
@@ -70,43 +71,71 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
               ),
+              myTextField(
+                hintText: "Enter your full name",
+                onChanged: (value) {
+                  setState(() {
+                    (value != '')
+                        ? _fullName = value
+                        : _fullName = '$defaultFirstName $defaultLastName';
+                  });
+                },
+              ),
               myButton(
                 text: 'Submit',
                 onPressed: () {
-                  if (_firstName.isEmpty) {
-                    _firstName = defaultFirstName;
-                  }
-                  if (_lastName.isEmpty) {
-                    _lastName = defaultLastName;
-                  }
+                  _firstName ??= defaultFirstName;
+                  _lastName ??= defaultLastName;
 
-                  var resultFirstName = validate(_firstName);
-                  var resultLastName = validate(_lastName);
+                  var validate = validateFactory(isFullName: false);
+                  var responseFirstName = validate(_firstName!);
+                  var responseLastName = validate(_lastName!);
 
-                  if (resultFirstName != "OK") {
+                  if (responseFirstName["isValid"] == false) {
                     myExeptionDialog(
                       context: context,
-                      message: "$resultFirstName in First Name",
+                      message: "${responseFirstName["message"]} in First Name",
                     );
                   }
-                  if (resultLastName != "OK") {
+                  if (responseLastName["isValid"] == false) {
                     myExeptionDialog(
                       context: context,
-                      message: "$resultLastName in Last Name",
+                      message: "${responseLastName["message"]} in Last Name",
                     );
                   }
 
                   setState(() {
-                    student.firstName(
-                      (_firstName.isEmpty || resultFirstName != "OK")
-                          ? defaultFirstName
-                          : _firstName,
+                    student.firstName =
+                        ((_firstName!.isEmpty ||
+                            responseFirstName["isValid"] == false)
+                        ? defaultFirstName
+                        : _firstName)!;
+
+                    student.lastName =
+                        ((_lastName!.isEmpty ||
+                            responseLastName["isValid"] == false)
+                        ? defaultLastName
+                        : _lastName)!;
+                  });
+                },
+              ),
+              myButton(
+                text: "Submit with full name",
+                onPressed: () {
+                  _fullName ??= '$defaultFirstName $defaultLastName';
+
+                  var validate = validateFactory(isFullName: true);
+                  var responseFullName = validate(_fullName!);
+
+                  if (responseFullName["isValid"] == false) {
+                    myExeptionDialog(
+                      context: context,
+                      message: responseFullName["message"],
                     );
-                    student.lastName(
-                      (_lastName.isEmpty || resultLastName != "OK")
-                          ? defaultLastName
-                          : _lastName,
-                    );
+                  }
+
+                  setState(() {
+                    student = Student.fromFullName(_fullName!);
                   });
                 },
               ),
@@ -114,10 +143,11 @@ class _MyAppState extends State<MyApp> {
                 text: 'Reset to default',
                 onPressed: () {
                   setState(() {
-                    _firstName = defaultFirstName;
-                    _lastName = defaultLastName;
-                    student.firstName(defaultFirstName);
-                    student.lastName(defaultLastName);
+                    _firstName ??= defaultFirstName;
+                    _lastName ??= defaultLastName;
+                    _fullName ??= '$defaultFirstName $defaultLastName';
+                    student.firstName = defaultFirstName;
+                    student.lastName = defaultLastName;
                   });
                 },
               ),
@@ -130,5 +160,5 @@ class _MyAppState extends State<MyApp> {
 }
 
 void main() {
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(MaterialApp(home: MyApp()));
 }
