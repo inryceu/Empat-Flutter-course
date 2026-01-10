@@ -19,15 +19,14 @@ var validateFactory = ({bool isFullName = false}) {
       var responseFirstName = validate(parts[0]);
       var responseLastName = validate(parts[1]);
 
-      return responseFirstName["isValid"] == true &&
-              responseLastName["isValid"] == true
+      return responseFirstName["isValid"] && responseLastName["isValid"]
           ? {"isValid": true, "message": "OK"}
           : {
               "isValid": false,
               "message":
                   "Full name exception:\n"
-                  "${responseFirstName["isValid"] == false ? responseFirstName["message"] + " in First Name\n" : ""}"
-                  "${responseLastName["isValid"] == false ? responseLastName["message"] + " in Last Name\n" : ""}",
+                  "${!responseFirstName["isValid"] ? responseFirstName["message"] + " in First Name\n" : ""}"
+                  "${!responseLastName["isValid"] ? responseLastName["message"] + " in Last Name\n" : ""}",
             };
     };
   } else {
