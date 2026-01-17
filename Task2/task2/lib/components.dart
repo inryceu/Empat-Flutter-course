@@ -2,27 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../ui.dart';
 
-Widget YouTubeLogo() => Row(
-  children: [
-    Padding(
-      padding: EdgeInsetsGeometry.directional(start: 20.0, end: 2.0),
-      child: Icon(FontAwesomeIcons.youtube, color: Colors.red),
-    ),
-    Padding(
-      padding: EdgeInsetsGeometry.directional(start: 2.0, end: 20.0),
-      child: Text(
-        "YouTube",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: "YouTubeSans",
-        ),
-      ),
-    ),
-  ],
-);
-
 List<Widget> navBarTextButtons = [
   NavBarSubIconButton(iconData: FontAwesomeIcons.compass),
 
@@ -35,6 +14,64 @@ List<Widget> navBarTextButtons = [
   NavBarTextButton(text: "Mixes"),
   NavBarTextButton(text: "Already Watched"),
   NavBarTextButton(text: "Lastly Uploaded"),
+];
+
+List<Widget> posts = [
+  Post(
+    coverImagePath: "covers/1.jpg",
+    avatarImagePath: "avatars/1.jpg",
+    title: "Flutter Tutorial for Beginners",
+    videoInfo: "Flutter Dev • 1M views • 1 week ago",
+  ),
+  Post(
+    coverImagePath: "covers/2.jpg",
+    avatarImagePath: "avatars/2.jpg",
+    title: "Dart Programming Language Overview",
+    videoInfo: "Code Academy • 500K views • 2 weeks ago",
+  ),
+  Post(
+    coverImagePath: "covers/3.jpg",
+    avatarImagePath: "avatars/3.jpg",
+    title: "Building Responsive UIs in Flutter",
+    videoInfo: "Tech World • 750K views • 3 days ago",
+  ),
+  Post(
+    coverImagePath: "covers/4.jpg",
+    avatarImagePath: "avatars/2.jpg",
+    title: "State Management in Flutter",
+    videoInfo: "Flutter Experts • 300K views • 5 days ago",
+  ),
+  Post(
+    coverImagePath: "covers/5.jpg",
+    avatarImagePath: "avatars/1.jpg",
+    title: "Animations in Flutter",
+    videoInfo: "UI Masters • 450K views • 1 month ago",
+  ),
+];
+
+List<Widget> bottomNavBarItems = [
+  NavBarBottomIconButton(
+    start: 0,
+    end: 0,
+    iconData: FontAwesomeIcons.house,
+    text: "Home",
+  ),
+  NavBarBottomIconButton(
+    start: 0,
+    end: 0,
+    iconData: FontAwesomeIcons.fireFlameCurved,
+    text: "YouTube Shorts",
+  ),
+  Expanded(
+    child: Icon(FontAwesomeIcons.circlePlus, color: Colors.white, size: 40.0),
+  ),
+  NavBarBottomIconButton(
+    start: 0,
+    end: 0,
+    iconData: FontAwesomeIcons.folderPlus,
+    text: "Subscriptions",
+  ),
+  ProfileButton(avatarImagePath: "avatars/1.jpg"),
 ];
 
 AppBar MyAppBar() => AppBar(
@@ -81,39 +118,17 @@ AppBar MyAppBar() => AppBar(
   ),
 );
 
-Widget MyBody() => Column(
-  children: [
-    Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          Image(image: AssetImage('covers/1.jpg')),
-          SizedBox(height: 5.0),
-          Row(
-            children: [
-              CircleAvatar(backgroundImage: AssetImage('avatars/1.jpg')),
-              SizedBox(width: 10.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Sample Video Title',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Channel Name • 1M views • 1 day ago',
-                    style: TextStyle(color: Colors.grey, fontSize: 14.0),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+Widget MyBody() => SingleChildScrollView(child: Column(children: posts));
+
+Widget MyBottomAppBar() => BottomAppBar(
+  height: 80.0,
+  color: Colors.black,
+  child: Padding(
+    padding: EdgeInsets.symmetric(vertical: 2.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: bottomNavBarItems,
     ),
-  ],
+  ),
 );
