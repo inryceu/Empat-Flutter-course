@@ -80,3 +80,40 @@ AppBar MyAppBar() => AppBar(
     ],
   ),
 );
+
+Widget MyBody() => Column(
+  children: [
+    Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Image(image: AssetImage('covers/1.jpg')),
+          SizedBox(height: 5.0),
+          Row(
+            children: [
+              CircleAvatar(backgroundImage: AssetImage('avatars/1.jpg')),
+              SizedBox(width: 10.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Sample Video Title',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Channel Name • 1M views • 1 day ago',
+                    style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  ],
+);

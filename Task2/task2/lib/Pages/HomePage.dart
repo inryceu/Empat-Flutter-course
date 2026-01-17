@@ -6,6 +6,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: MyAppBar());
+    return Scaffold(appBar: MyAppBar(), body: MyBody());
   }
 }
