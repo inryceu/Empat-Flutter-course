@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../ui.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,18 +9,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        toolbarHeight: 80.0,
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
                       padding: EdgeInsetsGeometry.directional(
-                        start: 2.0,
+                        start: 20.0,
                         end: 2.0,
                       ),
 
@@ -35,6 +38,7 @@ class HomePage extends StatelessWidget {
                         "YouTube",
                         style: TextStyle(
                           color: Colors.white,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                           fontFamily: "YouTubeSans",
                         ),
@@ -44,64 +48,41 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsetsGeometry.directional(
-                        start: 10.0,
-                        end: 10.0,
-                      ),
-
-                      child: Icon(
-                        FontAwesomeIcons.chromecast,
-                        color: Colors.white,
-                      ),
+                    NavBarMainIconButton(
+                      start: 10,
+                      end: 10,
+                      iconData: FontAwesomeIcons.chromecast,
                     ),
 
-                    Padding(
-                      padding: EdgeInsetsGeometry.directional(
-                        start: 10.0,
-                        end: 10.0,
-                      ),
-
-                      child: Icon(Icons.notifications, color: Colors.white),
+                    NavBarMainIconButton(
+                      start: 10,
+                      end: 10,
+                      iconData: FontAwesomeIcons.bell,
                     ),
 
-                    Padding(
-                      padding: EdgeInsetsGeometry.directional(
-                        start: 10.0,
-                        end: 10.0,
-                      ),
-
-                      child: Icon(
-                        FontAwesomeIcons.magnifyingGlass,
-                        color: Colors.white,
-                      ),
+                    NavBarMainIconButton(
+                      start: 10,
+                      end: 10,
+                      iconData: FontAwesomeIcons.magnifyingGlass,
                     ),
                   ],
                 ),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.grey[800],
-                    shape: BoxShape.rectangle,
-                  ),
-                  child: IconButton(
-                    style: IconButton.styleFrom(
-                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    icon: Icon(
-                      FontAwesomeIcons.compass,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      size: 24.0,
-                    ),
-                    onPressed: () {},
-                  ),
+                NavBarSubIconButton(iconData: FontAwesomeIcons.compass),
+                Row(
+                  children: [
+                    NavBarTextButton(text: "Explore"),
+                    SizedBox(width: 10.0),
+                    NavBarTextButton(text: "Shorts"),
+                    SizedBox(width: 10.0),
+                    NavBarTextButton(text: "Subscriptions"),
+                    SizedBox(width: 10.0),
+                    NavBarTextButton(text: "Library"),
+                  ],
                 ),
               ],
             ),
