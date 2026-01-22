@@ -2,6 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../ui.dart';
 
+List<Widget> navBarMainButtons = [
+  YouTubeLogo(),
+  Row(
+    children: [
+      NavBarMainIconButton(
+        start: 10,
+        end: 10,
+        iconData: FontAwesomeIcons.chromecast,
+      ),
+
+      NavBarMainIconButton(start: 10, end: 10, iconData: FontAwesomeIcons.bell),
+
+      NavBarMainIconButton(
+        start: 10,
+        end: 20,
+        iconData: FontAwesomeIcons.magnifyingGlass,
+      ),
+    ],
+  ),
+];
+
 List<Widget> navBarTextButtons = [
   NavBarSubIconButton(iconData: FontAwesomeIcons.compass),
 
@@ -62,8 +83,16 @@ List<Widget> bottomNavBarItems = [
     iconData: FontAwesomeIcons.fireFlameCurved,
     text: "YouTube Shorts",
   ),
-  Expanded(
-    child: Icon(FontAwesomeIcons.circlePlus, color: Colors.white, size: 40.0),
+  Column(
+    children: [
+      Expanded(
+        child: Icon(
+          FontAwesomeIcons.circlePlus,
+          color: Colors.white,
+          size: 40.0,
+        ),
+      ),
+    ],
   ),
   NavBarBottomIconButton(
     start: 0,
@@ -76,55 +105,34 @@ List<Widget> bottomNavBarItems = [
 
 AppBar MyAppBar() => AppBar(
   toolbarHeight: 80.0,
-  flexibleSpace: Column(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      SizedBox(height: 20.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          YouTubeLogo(),
-          Row(
-            children: [
-              NavBarMainIconButton(
-                start: 10,
-                end: 10,
-                iconData: FontAwesomeIcons.chromecast,
-              ),
-
-              NavBarMainIconButton(
-                start: 10,
-                end: 10,
-                iconData: FontAwesomeIcons.bell,
-              ),
-
-              NavBarMainIconButton(
-                start: 10,
-                end: 20,
-                iconData: FontAwesomeIcons.magnifyingGlass,
-              ),
-            ],
-          ),
-        ],
-      ),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Row(children: navBarTextButtons)],
+  flexibleSpace: SafeArea(
+    top: true,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: navBarMainButtons,
         ),
-      ),
-    ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Row(children: navBarTextButtons)],
+          ),
+        ),
+      ],
+    ),
   ),
 );
 
 Widget MyBody() => SingleChildScrollView(child: Column(children: posts));
 
-Widget MyBottomAppBar() => BottomAppBar(
+BottomAppBar MyBottomAppBar() => BottomAppBar(
   height: 80.0,
   color: Colors.black,
   child: Padding(
-    padding: EdgeInsets.symmetric(vertical: 2.0),
+    padding: const EdgeInsets.symmetric(vertical: 2.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,

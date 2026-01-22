@@ -12,7 +12,7 @@ Widget NavBarMainIconButton({
 );
 
 Widget NavBarSubIconButton({required IconData iconData}) => Padding(
-  padding: EdgeInsets.symmetric(horizontal: 10.0),
+  padding: const EdgeInsets.symmetric(horizontal: 10.0),
   child: NavBarStyleWidget(
     child: IconButton(
       style: NavBarButtonStyle(),
@@ -35,7 +35,7 @@ Widget NavBarTextButton({required String text}) => Padding(
       onPressed: () {},
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w500,
           fontSize: 16.0,
@@ -53,10 +53,10 @@ Widget NavBarBottomIconButton({
 }) => Column(
   children: [
     NavBarMainIconButton(start: start, end: end, iconData: iconData),
-    SizedBox(height: 0.5),
+    const SizedBox(height: 0.5),
     Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w400,
         fontSize: 12.0,
@@ -71,21 +71,21 @@ Widget Post({
   required String title,
   required String videoInfo,
 }) => Padding(
-  padding: EdgeInsets.all(10.0),
+  padding: const EdgeInsets.all(10.0),
   child: Column(
     children: [
       Image(image: AssetImage(coverImagePath)),
-      SizedBox(height: 5.0),
+      const SizedBox(height: 5.0),
       Row(
         children: [
           CircleAvatar(backgroundImage: AssetImage(avatarImagePath)),
-          SizedBox(width: 10.0),
+          const SizedBox(width: 10.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ Widget Post({
               ),
               Text(
                 videoInfo,
-                style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                style: const TextStyle(color: Colors.grey, fontSize: 14.0),
               ),
             ],
           ),
@@ -106,10 +106,10 @@ Widget Post({
 Widget ProfileButton({required String avatarImagePath}) => Column(
   children: [
     CircleAvatar(backgroundImage: AssetImage(avatarImagePath), radius: 12.0),
-    SizedBox(height: 0.5),
+    const SizedBox(height: 0.5),
     Text(
       "You",
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w400,
         fontSize: 12.0,
@@ -121,12 +121,12 @@ Widget ProfileButton({required String avatarImagePath}) => Column(
 Widget YouTubeLogo() => Row(
   children: [
     Padding(
-      padding: EdgeInsetsGeometry.directional(start: 20.0, end: 2.0),
-      child: Icon(FontAwesomeIcons.youtube, color: Colors.red),
+      padding: const EdgeInsetsGeometry.directional(start: 20.0, end: 2.0),
+      child: const Icon(FontAwesomeIcons.youtube, color: Colors.red),
     ),
     Padding(
-      padding: EdgeInsetsGeometry.directional(start: 2.0, end: 20.0),
-      child: Text(
+      padding: const EdgeInsetsGeometry.directional(start: 2.0, end: 20.0),
+      child: const Text(
         "YouTube",
         style: TextStyle(
           color: Colors.white,

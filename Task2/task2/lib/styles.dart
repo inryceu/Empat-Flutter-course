@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-Widget NavBarStyleWidget({required Widget child, VoidCallback? onPressed}) =>
-    Container(
+class NavBarStyleWidget extends StatelessWidget {
+  final Widget child;
+  final VoidCallback? onPressed;
+
+  const NavBarStyleWidget({required this.child, this.onPressed, Key? key})
+    : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.grey[800],
@@ -9,9 +17,11 @@ Widget NavBarStyleWidget({required Widget child, VoidCallback? onPressed}) =>
       ),
       child: child,
     );
+  }
+}
 
 ButtonStyle NavBarButtonStyle() => TextButton.styleFrom(
-  padding: EdgeInsets.all(5.0),
+  padding: const EdgeInsets.all(5.0),
   minimumSize: Size.zero,
   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 );
