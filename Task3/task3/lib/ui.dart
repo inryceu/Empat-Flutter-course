@@ -26,33 +26,55 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class MyBody extends StatelessWidget {
-  const MyBody({super.key});
-
-  final List<Image> list = const [
-    Image(image: AssetImage("covers/1.jpg")),
-    Image(image: AssetImage("covers/2.jpg")),
-    Image(image: AssetImage("covers/3.jpg")),
-    Image(image: AssetImage("covers/4.jpg")),
-    Image(image: AssetImage("covers/5.jpg")),
-    Image(image: AssetImage("covers/6.jpg")),
-    Image(image: AssetImage("covers/7.jpg")),
-    Image(image: AssetImage("covers/8.jpg")),
-  ];
+  final List<String> _images;
+  const MyBody({super.key, required List<String> images}) : _images = images;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10),
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
-        children: list.asMap().entries.map((entry) {
-          final index = entry.key;
-          final img = entry.value;
-
-          return Hero(tag: 'photo_$index', child: img);
+        children: _images.map((path) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  opaque: false,
+                  barrierColor: Colors.black,
+                  pageBuilder: (_, _, _) {
+                    return _FakeFullScreen(imagePath: path);
+                  },
+                ),
+              );
+            },
+            child: Hero(
+              tag: path,
+              child: Image.asset(path, fit: BoxFit.cover),
+            ),
+          );
         }).toList(),
+      ),
+    );
+  }
+}
+
+class _FakeFullScreen extends StatelessWidget {
+  final String _imagePath;
+
+  const _FakeFullScreen({required String imagePath}) : _imagePath = imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: Scaffold(
+        backgroundColor: Colors.grey[850],
+        body: Center(
+          child: Hero(tag: _imagePath, child: Image.asset(_imagePath)),
+        ),
       ),
     );
   }
