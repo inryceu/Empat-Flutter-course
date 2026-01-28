@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:task3/ui.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -21,9 +20,14 @@ class _MyHomePageState extends State<MyHomePage> {
     "covers/6.jpg",
     "covers/7.jpg",
     "covers/8.jpg",
+    "covers/9.jpg",
   ];
 
-  final List<String> animals = const ["covers/7.jpg", "covers/8.jpg"];
+  final List<String> animals = const [
+    "covers/7.jpg",
+    "covers/8.jpg",
+    "covers/9.jpg",
+  ];
 
   final List<String> different = const [
     "covers/1.jpg",
@@ -35,54 +39,34 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<Widget> get _pages => [
-    MyBody(images: all),
-    MyBody(images: animals),
-    MyBody(images: different),
+    MyGrid(images: all),
+    MyGrid(images: animals),
+    MyGrid(images: different),
   ];
+
+  void _changeIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blueGrey),
-              child: Text(
-                "Menu",
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.pentagon),
-              title: const Text("All"),
-              onTap: () {
-                setState(() => _selectedIndex = 0);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.circleDot),
-              title: const Text("Animals"),
-              onTap: () {
-                setState(() => _selectedIndex = 1);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.square),
-              title: const Text("Different"),
-              onTap: () {
-                setState(() => _selectedIndex = 2);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+      drawer: MyAppDrawer(
+        selectedIndex: _selectedIndex,
+        onItemSelected: _changeIndex,
       ),
-      body: _pages[_selectedIndex],
+      body: MyBody(
+        selectedIndex: _selectedIndex,
+        pages: _pages,
+        onIndexChanged: _changeIndex,
+      ),
+      bottomNavigationBar: MyBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemSelected: _changeIndex,
+      ),
     );
   }
 }
