@@ -28,7 +28,7 @@ Widget NavBarSubIconButton({required IconData iconData}) => Padding(
 );
 
 Widget NavBarTextButton({required String text}) => Padding(
-  padding: EdgeInsets.symmetric(horizontal: 5.0),
+  padding: const EdgeInsets.symmetric(horizontal: 5.0),
   child: NavBarStyleWidget(
     child: TextButton(
       style: NavBarButtonStyle(),

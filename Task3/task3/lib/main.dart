@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'Pages/HomePage.dart';
+import 'Pages/MyHomePage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,21 +9,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'YouTube Clone',
-      theme: ThemeData(
+      theme: ThemeData.from(
         colorScheme: ColorScheme(
-          surface: Colors.black,
-          brightness: Brightness.dark,
-          primary: Colors.red,
+          brightness: Brightness.light,
+          primary: Colors.blue,
           onPrimary: Colors.white,
-          secondary: Colors.redAccent,
+          secondary: Colors.teal,
           onSecondary: Colors.white,
           error: Colors.red,
           onError: Colors.white,
-          onSurface: Colors.white,
+          surface: Colors.white,
+          onSurface: Colors.black,
         ),
       ),
-      home: HomePage(),
+      home: const MyHomePage(),
     );
   }
 }
