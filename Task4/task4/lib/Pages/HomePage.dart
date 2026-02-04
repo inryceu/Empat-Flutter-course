@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task4/components.dart';
 import "../CartItem.dart";
 
 class HomePage extends StatefulWidget {
@@ -28,6 +29,18 @@ class HomePageState extends State<HomePage> {
       name: "qiwi",
       price: 15.75,
       path: "covers/3.jpg",
+      onTap: _addItemToCart,
+    ),
+    CartItem(
+      name: "orange",
+      price: 8.55,
+      path: "covers/4.jpg",
+      onTap: _addItemToCart,
+    ),
+    CartItem(
+      name: "tomato",
+      price: 7.69,
+      path: "covers/5.jpg",
       onTap: _addItemToCart,
     ),
   ];
@@ -60,65 +73,9 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Total items: $_totalItems\nTotal price: \$${_totalPrice.toStringAsFixed(2)}",
-          style: TextStyle(
-            fontFamily: "Roboto",
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-            backgroundColor: Colors.blueGrey,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Shop Items:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ..._shopItems,
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Cart:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            if (_cart.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Cart is empty."),
-              )
-            else
-              ..._cart.values.map((entry) {
-                final CartItem item = entry['item'];
-                final int quantity = entry['quantity'];
-                return ListTile(
-                  leading: Image.asset(
-                    item.path,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                  ),
-                  title: Text(item.name),
-                  subtitle: Text('Quantity: $quantity'),
-                  trailing: Text((item.price * quantity).toStringAsFixed(2)),
-                );
-              }),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: TextButton(onPressed: _resetCart, child: Text("Reset cart")),
-      ),
+      appBar: MyAppBar(totalItems: _totalItems, totalPrice: _totalPrice),
+      body: MyBody(shopItems: _shopItems, cart: _cart),
+      bottomNavigationBar: MyBottomAppBar(resetCart: _resetCart),
     );
   }
 }
