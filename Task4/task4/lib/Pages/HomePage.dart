@@ -26,7 +26,7 @@ class HomePageState extends State<HomePage> {
       onTap: _addItemToCart,
     ),
     CartItem(
-      name: "qiwi",
+      name: "kiwi",
       price: 15.75,
       path: "covers/3.jpg",
       onTap: _addItemToCart,
